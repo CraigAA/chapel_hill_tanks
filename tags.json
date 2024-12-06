@@ -1,0 +1,164 @@
+{
+  "name": "Tank_Carel",
+  "parameters": {
+    "TNK_NO": {
+      "dataType": "String",
+      "value": "201"
+    }
+  },
+  "tagType": "UdtType",
+  "tags": [
+    {
+      "valueSource": "memory",
+      "opcItemPath": "ns\u003d1;s\u003d[TF_ChapelHill]STS_TMP_TEST",
+      "documentation": "Gateway timer script uses modbus RTU over TCP/IP to read temperature from the Carel IR33 device.",
+      "tooltip": "Low Alarm",
+      "tagType": "AtomicTag",
+      "scaleMode": "Off",
+      "historyProvider": "Edge Historian",
+      "dataType": "Boolean",
+      "name": "SETPOINT_ALARM_LO",
+      "historyEnabled": false,
+      "value": false,
+      "opcServer": "Ignition OPC UA Server"
+    },
+    {
+      "valueSource": "expr",
+      "expression": "now(1000)\u003eaddminutes({[.]HB_LAST_UPDATE},5)",
+      "opcItemPath": "ns\u003d1;s\u003d[TF_ChapelHill]HB_CAREL",
+      "dataType": "Boolean",
+      "documentation": "Modbus script from Carel IR33 device is working",
+      "name": "FLT_HB",
+      "value": false,
+      "tagType": "AtomicTag",
+      "opcServer": "Ignition OPC UA Server"
+    },
+    {
+      "valueSource": "expr",
+      "expression": "{[.]SETPOINT_ALARM_HI}||{[.]SETPOINT_ALARM_LO}",
+      "dataType": "Boolean",
+      "name": "FLT_TEMP",
+      "tagType": "AtomicTag"
+    },
+    {
+      "valueSource": "memory",
+      "dataType": "DateTime",
+      "name": "HB_LAST_UPDATE",
+      "formatString": "yyyy-MM-dd h:mm:ss aa",
+      "value": 1718634600000,
+      "tagType": "AtomicTag"
+    },
+    {
+      "name": "D365",
+      "tagType": "Folder",
+      "tags": [
+        {
+          "valueSource": "expr",
+          "expression": "lookup({[~]Tank Farm/Global/Tank_D365_Data},{TNK_NO},0,0,\"Litres\")",
+          "name": "Litres",
+          "value": 2896,
+          "tagType": "AtomicTag"
+        },
+        {
+          "valueSource": "expr",
+          "expression": "if(lookup({[~]Tank Farm/Global/Tank_D365_Data},{TNK_NO},0,0,\"Litres\")\u003d0,\r\n\t\"\",\r\n\tlookup({[~]Tank Farm/Global/Tank_D365_Data},{TNK_NO},\"\",0,\"Customer\")\r\n)",
+          "dataType": "String",
+          "name": "Customer",
+          "value": "4460",
+          "tagType": "AtomicTag"
+        },
+        {
+          "valueSource": "expr",
+          "expression": "lookup({[~]Tank Farm/Global/Tank_D365_Data},{TNK_NO},\"None\",0,\"Wine_Code\")",
+          "dataType": "String",
+          "name": "Code",
+          "value": "W000073470",
+          "tagType": "AtomicTag"
+        },
+        {
+          "valueSource": "expr",
+          "expression": "lookup({[~]Tank Farm/Global/Tank_D365_Data},{TNK_NO},\"None\",0,\"Description\")",
+          "dataType": "String",
+          "name": "Description",
+          "value": "FB; Shiraz, MCVL, Dry Red",
+          "tagType": "AtomicTag"
+        }
+      ]
+    },
+    {
+      "valueSource": "memory",
+      "historyMaxAge": 10,
+      "opcItemPath": "ns\u003d1;s\u003d[TF_ChapelHill]STS_TEST",
+      "documentation": "Gateway timer script uses modbus RTU over TCP/IP to read temperature from the Carel IR33 device.",
+      "tooltip": "Actual Temperature",
+      "tagType": "AtomicTag",
+      "historyProvider": "Edge Historian",
+      "historyMaxAgeUnits": "MIN",
+      "name": "STS",
+      "historyEnabled": true,
+      "value": 258,
+      "opcServer": "Ignition OPC UA Server"
+    },
+    {
+      "valueSource": "memory",
+      "opcItemPath": "ns\u003d1;s\u003d[TF_ChapelHill]STS_TMP_TEST",
+      "documentation": "Gateway timer script uses modbus RTU over TCP/IP to read temperature from the Carel IR33 device.",
+      "tooltip": "High Alarm",
+      "tagType": "AtomicTag",
+      "scaleMode": "Off",
+      "historyProvider": "Edge Historian",
+      "dataType": "Boolean",
+      "name": "SETPOINT_ALARM_HI",
+      "historyEnabled": false,
+      "value": false,
+      "opcServer": "Ignition OPC UA Server"
+    },
+    {
+      "valueSource": "memory",
+      "historyMaxAge": 10,
+      "opcItemPath": "ns\u003d1;s\u003d[TF_ChapelHill]STPT_TMP_TEST",
+      "documentation": "Gateway timer script uses modbus RTU over TCP/IP to read setpoint temperature from the Carel IR33 device.",
+      "tooltip": "Setpoint Temperature",
+      "tagType": "AtomicTag",
+      "historyProvider": "Edge Historian",
+      "dataType": "Float4",
+      "historyMaxAgeUnits": "MIN",
+      "name": "STPT_TMP",
+      "historyEnabled": true,
+      "value": 21.5,
+      "opcServer": "Ignition OPC UA Server"
+    },
+    {
+      "valueSource": "memory",
+      "opcItemPath": "ns\u003d1;s\u003d[TF_ChapelHill]STS_TMP_TEST",
+      "documentation": "Gateway timer script uses modbus RTU over TCP/IP to read temperature from the Carel IR33 device.",
+      "tooltip": "Actual Temperature",
+      "tagType": "AtomicTag",
+      "scaleMode": "Off",
+      "historyProvider": "Edge Historian",
+      "dataType": "Float4",
+      "name": "STS_TMP",
+      "historyEnabled": true,
+      "value": 13.6,
+      "opcServer": "Ignition OPC UA Server"
+    },
+    {
+      "name": "LVL",
+      "tagType": "Folder",
+      "tags": [
+        {
+          "name": "Dimensions",
+          "tagType": "Folder",
+          "tags": [
+            {
+              "valueSource": "memory",
+              "name": "TOTAL_VOL",
+              "value": 4000,
+              "tagType": "AtomicTag"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
