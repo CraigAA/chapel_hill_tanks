@@ -1,2 +1,4 @@
-This directory exists so that 3rd party packages can be installed
-here.  Read the source for site.py for more details.
+Chapel Hill Tank Communication.
+
+Move pyModbusTCP folder to Ignition python lib folder on server:
+C:\Program Files\Inductive Automation\Ignition\user-lib\pylib\site-packages
